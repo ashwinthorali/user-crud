@@ -8,12 +8,18 @@ import { UserComponent } from './user/user.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { SigninComponent } from './user/signin/signin.component';
+import { HomeComponent } from './user/home/home.component';
+import { PagenotfoundComponent } from './user/pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
-    SignUpComponent
+    SignUpComponent,
+    SigninComponent,
+    HomeComponent,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule,

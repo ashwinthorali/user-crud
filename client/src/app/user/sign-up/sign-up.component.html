@@ -1,0 +1,19 @@
+<form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
+    <input type="text" #fullName="ngModel" [(ngModel)]="userService.selectedUser.fullName" name="fullName" placeholder="Full Name" required
+    >
+
+    <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="Email" required >
+
+    <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password" placeholder="password"
+>
+
+    <input type="submit" value="Sign Up">
+</form>
+
+<div class="success" *ngIf="showSuccessMessage">
+    Saved Successfully!!
+</div>
+
+<div class="alert" *ngIf="serverErrorMessages">
+    {{ serverErrorMessages }}
+</div>

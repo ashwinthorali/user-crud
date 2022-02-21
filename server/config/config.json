@@ -1,0 +1,10 @@
+{
+    "developement": {
+        "PORT": 3000,
+        "MONGODB_URI": "mongodb://localhost:27017/user-crud"
+    },
+    "production": {
+        "PORT": 80,
+        "MONGODB_URI": "mongodb://localhost:27018/user-cruds"
+    }
+}

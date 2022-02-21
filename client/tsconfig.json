@@ -28,6 +28,6 @@
     "strictTemplates": true,
     "strictPropertyInitialization": false,
     "Access-Control-Allow-Credentials": true,
-    "Access-Control-Allow-Origin": "http://localhost",
+    // "Access-Control-Allow-Origin": "http://localhost",
   }
 }

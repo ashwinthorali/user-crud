@@ -18,21 +18,36 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  postUser(user: User){
-    debugger
-    return this.http.post(environment.apiBaseUrl + '/register', user);
-    // return this.http.post(environment.apiBaseUrl + '/register', user)
-    //   .map(resdata => {
-    //     return resdata;
-    //   }, error => {
-    //     return null;
-    //   });
-  }
+  // postUser(user: User){
+  //   debugger
+  //   return this.http.post(environment.apiBaseUrl + '/register', user);
+  //   // return this.http.post(environment.apiBaseUrl + '/register', user)
+  //   //   .map(resdata => {
+  //   //     return resdata;
+  //   //   }, error => {
+  //   //     return null;
+  //   //   });
+  // }
   // setHeaders() {
-  //   return { 'content-type': 'application/json' }
+  //   return {  'Content-Type': 'application/json',
+  //   'Accept': 'application/json',
+  //   'Access-Control-Allow-Headers': 'Content-Type', }
   // }
-  // postUser(user: User): Observable<any> {
-  //   return this.http.post(environment.apiBaseUrl + '/register', user, { 'headers': this.setHeaders() })
-  // }
+
+  
+  postUser(user: User): Observable<any> {
+
+    const headerDict = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Headers': '*',
+    }
+    
+    const requestOptions = {                                                                                                                                                                                 
+      headers: new HttpHeaders(headerDict), 
+    };
+    const data = JSON.stringify(user);
+    return this.http.post(environment.apiBaseUrl + '/register', data, requestOptions)
+  }
 }
 

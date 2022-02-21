@@ -10,7 +10,7 @@ const rtsIndex = require('./routes/index.router');
 var app = express();
 
 app.use(bodyparser.json());
-app.options("*",cors());
+app.use(cors());
 app.use('/api', rtsIndex);
 
 // app.use((err, req, res, next) => {
@@ -30,7 +30,7 @@ var allowCrossDomain = function (req, res, next) {
     if (filterData.length > 0) {
         res.setHeader('Access-Control-Allow-Origin', origin);
     }
-    // res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
     res.header('Access-Control-Allow-Headers', 'Content-Type, appToken');
@@ -43,7 +43,7 @@ var allowCrossDomain = function (req, res, next) {
         next();
     }
 };
-app.use(allowCrossDomain);
+//app.use(allowCrossDomain);
 
 app.listen(process.env.PORT, () => console.log(`serve started at port: ${process.env.PORT}`));
 

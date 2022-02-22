@@ -1,1 +1,17 @@
-<p>signin works!</p>
+<form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
+
+    <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="Email" required >
+
+    <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password" placeholder="password"
+>
+
+    <input type="submit" value="Sign In">
+</form>
+
+<div class="success" *ngIf="showSuccessMessage">
+    Saved Successfully!!
+</div>
+
+<div class="alert" *ngIf="serverErrorMessages">
+    {{ serverErrorMessages }}
+</div>

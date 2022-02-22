@@ -18,3 +18,16 @@ module.exports.register = (req,res,next) => {
         }
     });
 } 
+
+module.exports.delete = ('/:id', (req,res,next) =>{
+
+    const userIdS = req.params.id;
+
+    user.delete((err) => {
+        if (!err)
+            console.log('deleted successfully');
+        else{
+            console.log('error');
+        }
+    })
+}

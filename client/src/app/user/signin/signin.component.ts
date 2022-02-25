@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/shared/user.service';
+
 
 @Component({
   selector: 'app-signin',
@@ -13,7 +15,7 @@ export class SigninComponent implements OnInit {
   showSuccessMessage: boolean;
   serverErrorMessages: string;
 
-  constructor(public userService:UserService, public router:Router) { }
+  constructor(public userService:UserService, public router:Router, public toastr:ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -29,6 +31,7 @@ export class SigninComponent implements OnInit {
         console.log(res);
         this.router.navigate(['/home/']);
         this.resetForm(form);
+        this.toastr.success("signed in successfully");
       },
       err => {
         alert(JSON.stringify(err));

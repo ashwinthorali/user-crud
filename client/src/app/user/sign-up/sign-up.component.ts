@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../shared/user.service';
+import { ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class SignUpComponent implements OnInit {
   emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   showSuccessMessage: boolean;
   serverErrorMessages: string;
-  constructor(public userService: UserService, public router:Router) { }
+  constructor(public userService: UserService, public router:Router, public toastr:ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -33,6 +34,7 @@ export class SignUpComponent implements OnInit {
           this.showSuccessMessage = false, 4000);
         this.resetForm(form);
         this.router.navigate(['/signin']);
+        this.toastr.success('Singed Up Successfully');
       },
       err => {
         alert(JSON.stringify(err));

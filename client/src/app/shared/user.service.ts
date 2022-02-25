@@ -49,5 +49,13 @@ export class UserService {
     const data = JSON.stringify(user);
     return this.http.post(environment.apiBaseUrl + '/register', data, requestOptions)
   }
+
+  login(email:string, password:string): Observable<any> {
+    return this.http.get(environment.apiBaseUrl + '/login/' + email + '/'+ password)
+  }
+
+  getUserList():any {
+    return this.http.get(environment.apiBaseUrl + '/get/home/')
+  }
 }
 

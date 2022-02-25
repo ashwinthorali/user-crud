@@ -5,6 +5,8 @@ const ctrlUser = require('../controllers/user.controller');
 
 router.get('/get/home', ctrlUser.get)
 
+router.get('/login/:email/:password', ctrlUser.login)
+
 router.post('/register', ctrlUser.register);
 
 router.delete('/delete/:id', ctrlUser.delete);

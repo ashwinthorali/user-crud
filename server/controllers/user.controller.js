@@ -12,6 +12,27 @@ module.exports.get = ('/home', (req,res) => {
     })
 })
 
+
+module.exports.login = ("/login/:email/:password", (req,res) => {
+    const email = req.params.email;
+    const password = req.params.password;
+    console.log(email);
+    console.log(password);
+    
+    User.find({ email: email, password: password }, (err,result) =>{
+        if (result.length == 1) {
+            console.log(result)
+            res.send(result);
+        } 
+        else {
+            console.log(err);
+            // res.send(err);
+        }
+    });
+});
+
+
+
 module.exports.register = (req,res,next) => {
     var user = new User();
     user.fullName = req.body.fullName;
@@ -32,10 +53,6 @@ module.exports.register = (req,res,next) => {
 module.exports.put = ('/:id', (req,res,next) =>{
     const userId = req.params.id;
     const userInput = req.body;
-
-    // const doc = await User.findById(userId);
-    // doc.name = 'jason bourne';
-    // await doc.save();
 
     User.findOneAndUpdate({_id: userId}, {$set: {fullName:userInput.fullName}},(err,doc) => {
         if (err)

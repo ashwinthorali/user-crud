@@ -1,1 +1,32 @@
-<p>home works!</p>
+<div class="d-flex p-1">  
+    <div class="p-5">
+        <!-- <table mat-table [dataSource]="users" class="mat-elevation-z8">
+
+            <!-- <h1> Welcome {{fullName}}</h1></div></div> -->
+            <!-- <ng-container matColumnDef="fullName">
+                <th mat-header-cell *matHeaderCellDef> User Name </th>
+                <td mat-cell *matCellDef="let users"> {{users.fullName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let users"> {{users.email}} </td>
+            </ng-container> -->
+        <div class="p-5">
+            <mat-grid-list cols="2" rowHeight="20px" gutterSize="10px">   
+                <tr>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Email</th>
+                </tr>
+                <tr *ngFor="let user of users">
+                    <td scope="row">{{user.fullName}}</td>
+                    <td scope="row">{{user.email}}</td>
+                    
+                </tr>
+                <mat-grid-tile>User Name</mat-grid-tile>
+                <mat-grid-tile>Email</mat-grid-tile>
+                <mat-grid-tile *ngFor="let user of users">{{user.fullName}}</mat-grid-tile>
+                <mat-grid-tile *ngFor="let user of users">{{user.email}}</mat-grid-tile>
+            </mat-grid-list>
+        <!-- </table> -->
+    </div>
+</div>

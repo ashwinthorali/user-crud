@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from '../../shared/user.service';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -12,7 +14,7 @@ export class SignUpComponent implements OnInit {
   emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   showSuccessMessage: boolean;
   serverErrorMessages: string;
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService, public router:Router) { }
 
   ngOnInit(): void {
   }
@@ -30,6 +32,7 @@ export class SignUpComponent implements OnInit {
         setTimeout(() => 
           this.showSuccessMessage = false, 4000);
         this.resetForm(form);
+        this.router.navigate(['/signin']);
       },
       err => {
         alert(JSON.stringify(err));

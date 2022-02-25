@@ -1,17 +1,22 @@
-<form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <h2 class="inactive underlineHover">Sign In</h2>
+        <form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
 
-    <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="Email" required >
+            <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="Email" required >
 
-    <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password" placeholder="password"
->
+            <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password" placeholder="password"
+        >
 
-    <input type="submit" value="Sign In">
-</form>
+            <input type="submit" value="Sign In">
+        </form>
 
-<div class="success" *ngIf="showSuccessMessage">
-    Saved Successfully!!
-</div>
+        <div class="success" *ngIf="showSuccessMessage">
+            Saved Successfully!!
+        </div>
 
-<div class="alert" *ngIf="serverErrorMessages">
-    {{ serverErrorMessages }}
+        <div class="alert" *ngIf="serverErrorMessages">
+            {{ serverErrorMessages }}
+        </div>
+    </div>
 </div>

@@ -1,20 +1,25 @@
-<form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
-    <input type="text" #fullName="ngModel" [(ngModel)]="userService.selectedUser.fullName" name="fullName" placeholder="Full Name" required
-    >
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <h2 class="inactive underlineHover">Sign Up</h2>
+        <form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
+            <input type="text" #fullName="ngModel" [(ngModel)]="userService.selectedUser.fullName" name="fullName" placeholder="Full Name" required
+            >
 
-    <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="Email" required >
+            <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="Email" required >
 
-    <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password" placeholder="password"
->
+            <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password" placeholder="password"
+        >
 
-    <input type="submit" value="Sign Up">
-</form>
-<a style="color:rgb(31, 31, 23)" routerLink="/login">Already Registered? Click to login!!</a>
+            <input type="submit" value="Sign Up">
+        </form>
+        <a style="color:rgb(31, 31, 23)" routerLink="/login">Already Registered? Click to login!!</a>
 
-<div class="success" *ngIf="showSuccessMessage">
-    Saved Successfully!!
-</div>
+        <div class="success" *ngIf="showSuccessMessage">
+            Saved Successfully!!
+        </div>
 
-<div class="alert" *ngIf="serverErrorMessages">
-    {{ serverErrorMessages }}
+        <div class="alert" *ngIf="serverErrorMessages">
+            {{ serverErrorMessages }}
+        </div>
+    </div>
 </div>

@@ -10,6 +10,7 @@ import { UserService } from 'src/app/shared/user.service';
 export class HomeComponent implements OnInit {
   users: User[];
   fullName: string;
+  displayedColumns: string[];
 
 
   constructor(public userService:UserService) { }
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit {
       alert(JSON.stringify(this.users));
       console.log('printing ' + this.users);
     });
-    
+    this.displayedColumns = ['name', 'email', 'update', 'delete'];
   }
 
 }

@@ -1,18 +1,43 @@
 <app-header></app-header>
-<div class="d-flex p-1">  
-    <div class="p-5">
-        <!-- <table mat-table [dataSource]="users" class="mat-elevation-z8">
+<!-- <div class="d-flex p-1">  
+    <div class="p-5"> -->
+        <table mat-table [dataSource]="users" class="mat-elevation-z8">
 
-            <!-- <h1> Welcome {{fullName}}</h1></div></div> -->
-            <!-- <ng-container matColumnDef="fullName">
+            <h1> Welcome {{fullName}}</h1>
+            <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> User Name </th>
-                <td mat-cell *matCellDef="let users"> {{users.fullName}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
+                <td type="button">ashwin</td>
             </ng-container>
             <ng-container matColumnDef="email">
                 <th mat-header-cell *matHeaderCellDef> Email </th>
-                <td mat-cell *matCellDef="let users"> {{users.email}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+            <ng-container matColumnDef="update">
+                <th mat-header-cell  *matHeaderCellDef > Update </th>
+                <td mat-cell *matCellDef="let row" >
+                  <button mat-button >Edit</button>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="delete">
+                <th mat-header-cell  *matHeaderCellDef > Delete </th>
+                <td mat-cell *matCellDef="let row" >
+                  <button mat-button >Delete</button>
+                </td>
+              </ng-container>
+            <!-- <ng-container matColumnDef="update">
+                <mat-header-cell  *matHeaderCellDef > Update </mat-header-cell>
+                <mat-cell *matCellDef="let row" >
+                     <button mat-button >Edit</button>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="delete">
+                <mat-header-cell  *matHeaderCellDef > Delete </mat-header-cell>
+                <mat-cell *matCellDef="let row" >
+                        <button mat-button >Delete</button>
+                </mat-cell>
             </ng-container> -->
-                <tr>
+                <!-- <tr>
                     <th scope="col">User Name</th>
                     <th scope="col">Email</th>
                 </tr>
@@ -20,8 +45,10 @@
                     <td scope="row">{{user.fullName}}</td>
                     <td scope="row">{{user.email}}</td>
                     
-                </tr>
-        <!-- </table> -->
-    </div>
-</div>
+                </tr> -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    <!-- </div>
+</div> -->
 <app-footer></app-footer>

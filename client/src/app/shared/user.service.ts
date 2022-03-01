@@ -57,5 +57,14 @@ export class UserService {
   getUserList():any {
     return this.http.get(environment.apiBaseUrl + '/get/home/')
   }
+
+  update(id:number, user:User){
+    const data = JSON.stringify(user);
+    return this.http.put(environment.apiBaseUrl + '/put/' +id, data)
+  }
+
+  delete(id:number): Observable<any> {
+    return this.http.delete(environment.apiBaseUrl + '/delete/' + id)
+  }
 }
 

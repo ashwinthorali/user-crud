@@ -58,9 +58,9 @@ export class UserService {
     return this.http.get(environment.apiBaseUrl + '/get/home/')
   }
 
-  update(id:number, user:User){
-    const data = JSON.stringify(user);
-    return this.http.put(environment.apiBaseUrl + '/put/' +id, data)
+  update(data:any){
+    debugger
+    return this.http.put(environment.apiBaseUrl + '/put/' + data._id, data)
   }
 
   delete(id:number): Observable<any> {

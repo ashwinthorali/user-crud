@@ -52,9 +52,9 @@ module.exports.register = (req,res,next) => {
 
 module.exports.put = ('/:id', (req,res,next) =>{
     const userId = req.params.id;
-    const userInput = req.body;
+    const users = req.body;
 
-    User.findOneAndUpdate({_id: userId}, {$set: {fullName:userInput.fullName}},(err,doc) => {
+    User.findOneAndUpdate({_id: userId}, {$set: users},(err,doc) => {
         if (err)
             console.log(err);
         else

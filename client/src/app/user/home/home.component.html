@@ -15,14 +15,14 @@
             </ng-container>
             <ng-container matColumnDef="update">
                 <th mat-header-cell  *matHeaderCellDef > Update </th>
-                <td mat-cell *matCellDef="let row" >
-                  <button matTooltipPosition="right" matTooltip="Click to edit" mat-raised-button>Edit</button>
+                <td mat-cell *matCellDef="let element" >
+                  <button matTooltipPosition="right" matTooltip="Click to edit" mat-raised-button (click)="openupdate(element)">Edit</button>
                 </td>
               </ng-container>
               <ng-container matColumnDef="delete">
                 <th mat-header-cell  *matHeaderCellDef > Delete </th>
                 <td mat-cell *matCellDef="let element">
-                  <button id="delete" mat-icon-button matTooltipPosition="right" matTooltip="Click to delete" (click)="openDialog(element._id)"><mat-icon>delete</mat-icon></button>
+                  <button id="delete" mat-icon-button matTooltipPosition="right" matTooltip="Click to delete" (click)="openDialog(element)"><mat-icon>delete</mat-icon></button>
                   
                 </td>
               </ng-container>

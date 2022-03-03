@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Hi</h1>
+<form #updateForm="ngForm"  >
+<div mat-dialog-content>
+    <label>Full Name:</label>
+    <input matInput #fullName="ngModel" [(ngModel)]="data.element.fullName" [ngModelOptions]="{standalone: true}">
+    <label>Email ID:</label>
+    <input matInput #email="ngModel" [(ngModel)]="data.element.email" [ngModelOptions]="{standalone: true}">
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <input mat-raised-button cdkFocusInitial mat-dialog-close value="Save" type="button" (click)="onUpdate(data.element)">
+</div>
+</form>
+

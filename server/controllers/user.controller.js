@@ -11,44 +11,81 @@ const { use } = require('../routes/index.router');
 
 
 module.exports.get = ('/home', async(req,res) => {
-    const cookie = req.cookies['jwt']
 
-    const claims = jwt.verify(cookie, "secret")
+    //cookie code
+    // const cookie = req.cookies['jwt']
 
-    if(!claims) {
-        return res.status(401).send({
-            message: "unauthenticated"
-        })
-    }
+    // if(!cookie) return res.status(401).send('Access Denied');
 
-    console.log(claims._id)
+    // const claims = jwt.verify(cookie, "secret")
 
-    const user = await User.findOne({_id: claims._id})
+    // if(!claims) {
+    //     return res.status(401).send({
+    //         message: "unauthenticated"
+    //     })
+    // }
+
+    // console.log(claims._id)
+
+    // const user = await User.findOne({_id: claims._id})
 
     // console.log(user.toJSON())
-    // console.log(user._id)S
+    // console.log(user._id)
 
-    // res.send(stringify(claims))
-    // res.send(claims)
-    console.log(user)
+    // // res.send(stringify(claims))
+    // // res.send(claims)
+    // console.log(user)
 
-    console.log(claims._id)
+    // console.log(claims._id)
 
-    console.log(user._id.toString())
+    // console.log(user._id.toString())
 
-    if(user._id.toString() === claims._id) {
-        User.find({},(err,doc)=>{
-            if (err)
-                console.log(err);
-            else
-                console.log(doc);
-                res.send(doc);
-        })
+    // if(user._id.toString() === claims._id) {
+    //     User.find({},(err,doc)=>{
+    //         if (err)
+    //             console.log(err);
+    //         else
+    //             console.log(doc);
+    //             res.send(doc);
+    //     })
 
+    // }
+    
+    //header code
+    // const token = req.header('auth-token')
+
+    const authHeader = req.header('Authorization');
+
+    const bearer = authHeader.split(' ')
+
+    token = bearer[1]
+
+    if(!token) return res.status(401).send('Access Denied');
+    
+    try{
+        const claim = jwt.verify(token, "secret");
+
+        console.log(claim._id)
+
+        const user = await User.findOne({_id: claim._id})
+
+        if(user._id.toString() === claim._id) {
+            User.find({},(err,doc)=>{
+                if (err)
+                    console.log(err);
+                else
+                    console.log(doc);
+                    res.send(doc);
+            })
+    
+        }
+
+
+    }catch(err){
+        res.status(400).send('invalid token');
     }
 
-    // res.send(user)
-    
+    //normal query
     // User.find({},(err,doc)=>{
     //     if (err)
     //         console.log(err);
@@ -71,17 +108,17 @@ module.exports.login = ((req,res) => {
             console.log(doc[0])
             console.log(doc[0]._id.toString())
             console.log(doc[0].email)
-            const token = jwt.sign({_id: doc[0]._id}, "secret")
+            const token = jwt.sign({_id: doc[0]._id}, "secret", {expiresIn: '60s'})
 
             console.log(token)
-
-            res.cookie('jwt', token, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000})
-            res.send ({message : 'success'})
+            res.header('auth-token', token).send(token)
+            // res.cookie('jwt', token, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000}).send({message:'success'})
+            // res.send ({message : 'success'})
             // res.send(doc);
         } 
         else {
             console.log(err);
-            // res.send(err);
+            res.send(err);
         }
     });
 

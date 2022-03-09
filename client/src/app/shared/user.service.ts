@@ -50,8 +50,20 @@ export class UserService {
     return this.http.post(environment.apiBaseUrl + '/register', data, requestOptions)
   }
 
-  login(email:string, password:string): Observable<any> {
-    return this.http.get(environment.apiBaseUrl + '/login/' + email + '/'+ password)
+  login(data:any): Observable<any> {
+    debugger
+    const headerDict = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Headers': '*',
+    }
+    
+    const requestOptions = {                                                                                                                                                                                 
+      headers: new HttpHeaders(headerDict), 
+    };
+    const show = JSON.stringify(data);
+    console.log(show)
+    return this.http.post(environment.apiBaseUrl + '/login', data, requestOptions)
   }
 
   getUserList():any {

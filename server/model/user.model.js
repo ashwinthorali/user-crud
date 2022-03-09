@@ -26,14 +26,14 @@ userSchema.path('email').validate((val) => {
     return emailRegex.test(val);
 }, 'invalid Email');
 
-// userSchema.pre('save', function(next) {
-//     bcrypt.genSalt(10, (err, salt) => {
-//         bcrypt.hash(this.password, salt, (err, hash) => {
-//             this.password = hash;
-//             this.saltSecret = salt;
-//             next();
-//         });
-//     });
-// });
+userSchema.pre('save', function(next) {
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(this.password, salt, (err, hash) => {
+            this.password = hash;
+            this.saltSecret = salt;
+            next();
+        });
+    });
+});
 
 mongoose.model('User', userSchema);

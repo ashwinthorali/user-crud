@@ -4,12 +4,14 @@ require('./model/db');
 const express = require('express');
 const bodyparser = require('body-parser');
 const cors = require('cors');
-
+const cookieParser = require('cookie-parser');
 const rtsIndex = require('./routes/index.router');
 
 var app = express();
 
+app.use(express.json())
 app.use(bodyparser.json());
+app.use(cookieParser());
 app.use(cors());
 app.use('/api', rtsIndex);
 

@@ -2,33 +2,106 @@ const mongoose = require('mongoose');
 
 const User = mongoose.model('User');
 
-module.exports.get = ('/home', (req,res) => {
-    User.find({},(err,doc)=>{
-        if (err)
-            console.log(err);
-        else
-            console.log(doc);
-            res.send(doc);
-    })
+const bcrypt = require('bcryptjs');
+
+const jwt = require('jsonwebtoken');
+var stringify = require('json-stringify-safe');
+const { use } = require('../routes/index.router');
+
+
+
+module.exports.get = ('/home', async(req,res) => {
+    const cookie = req.cookies['jwt']
+
+    const claims = jwt.verify(cookie, "secret")
+
+    if(!claims) {
+        return res.status(401).send({
+            message: "unauthenticated"
+        })
+    }
+
+    console.log(claims._id)
+
+    const user = await User.findOne({_id: claims._id})
+
+    // console.log(user.toJSON())
+    // console.log(user._id)S
+
+    // res.send(stringify(claims))
+    // res.send(claims)
+    console.log(user)
+
+    console.log(claims._id)
+
+    console.log(user._id.toString())
+
+    if(user._id.toString() === claims._id) {
+        User.find({},(err,doc)=>{
+            if (err)
+                console.log(err);
+            else
+                console.log(doc);
+                res.send(doc);
+        })
+
+    }
+
+    // res.send(user)
+    
+    // User.find({},(err,doc)=>{
+    //     if (err)
+    //         console.log(err);
+    //     else
+    //         console.log(doc);
+    //         res.send(doc);
+    // })
 })
 
 
-module.exports.login = ("/login/:email/:password", (req,res) => {
-    const email = req.params.email;
-    const password = req.params.password;
+module.exports.login = ((req,res) => {
+    const email = req.body.email;
+    const password = req.body.password;
     console.log(email);
     console.log(password);
     
-    User.find({ email: email, password: password }, (err,result) =>{
-        if (result.length == 1) {
-            console.log(result)
-            res.send(result);
+    User.find({ email: email}, (err,doc) =>{
+        if (bcrypt.compare(password, doc[0].password)) {
+            
+            console.log(doc[0])
+            console.log(doc[0]._id.toString())
+            console.log(doc[0].email)
+            const token = jwt.sign({_id: doc[0]._id}, "secret")
+
+            console.log(token)
+
+            res.cookie('jwt', token, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000})
+            res.send ({message : 'success'})
+            // res.send(doc);
         } 
         else {
             console.log(err);
             // res.send(err);
         }
     });
+
+    // const user = User.findOne({email: email})
+    // console.log(stringify(user))
+
+    // console.log(user._id.toJSON())
+
+    // console.log(user._id)
+    // console.log(user.email)
+
+    // const token = jwt.sign({_id: user._id}, "secret")
+
+    // console.log(token)
+
+    // res.cookie('jwt', token, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000})
+
+    // res.send ({message : 'success'})
+
+    // res.send(stringify(token))
 });
 
 
@@ -75,3 +148,10 @@ module.exports.delete = ('/:id', (req,res,next) =>{
         
     });
 });
+
+module.exports.out = ((req,res,next) => {
+
+    res.cookie('jwt','',{maxAge: 0})
+    
+    res.send({message:'success'})
+})

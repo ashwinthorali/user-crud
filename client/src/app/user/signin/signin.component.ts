@@ -25,7 +25,8 @@ export class SigninComponent implements OnInit {
     //   .subscribe(data => {
     //     console.log(data);
     //   })
-    this.userService.login(form.value.email, form.value.password).subscribe(
+    debugger
+    this.userService.login(form.value).subscribe(
       res => {
         alert(JSON.stringify(res));
         console.log(res);

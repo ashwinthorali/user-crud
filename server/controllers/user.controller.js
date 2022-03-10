@@ -57,6 +57,7 @@ module.exports.get = ('/home', async(req,res) => {
     const authHeader = req.header('Authorization');
     const pageSize = req.query.pageSize ? parseInt(req.query.pageSize) : 0;
     const page = req.query.page ? parseInt(req.query.page) : 0;
+    const sort = req.query.sort ? parseInt(req.query.sort) : 1;
 
     const bearer = authHeader.split(' ')
 
@@ -83,7 +84,7 @@ module.exports.get = ('/home', async(req,res) => {
         // }
 
         if(user._id.toString() === claim._id) {
-            const users = await User.find({}).limit(pageSize).skip(pageSize * page);
+            const users = await User.find({}).sort({_id : sort}).limit(pageSize).skip(pageSize * page);
             console.log(users)
             res.send(users)
     

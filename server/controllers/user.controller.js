@@ -55,6 +55,8 @@ module.exports.get = ('/home', async(req,res) => {
     // const token = req.header('auth-token')
 
     const authHeader = req.header('Authorization');
+    const pageSize = req.query.pageSize ? parseInt(req.query.pageSize) : 0;
+    const page = req.query.page ? parseInt(req.query.page) : 0;
 
     const bearer = authHeader.split(' ')
 
@@ -69,14 +71,21 @@ module.exports.get = ('/home', async(req,res) => {
 
         const user = await User.findOne({_id: claim._id})
 
+        // if(user._id.toString() === claim._id) {
+        //     User.find({},(err,doc)=>{
+        //         if (err)
+        //             console.log(err);
+        //         else
+        //             console.log(doc);
+        //             res.send(doc);
+        //     })
+    
+        // }
+
         if(user._id.toString() === claim._id) {
-            User.find({},(err,doc)=>{
-                if (err)
-                    console.log(err);
-                else
-                    console.log(doc);
-                    res.send(doc);
-            })
+            const users = await User.find({}).limit(pageSize).skip(pageSize * page);
+            console.log(users)
+            res.send(users)
     
         }
 
@@ -108,7 +117,7 @@ module.exports.login = ((req,res) => {
             console.log(doc[0])
             console.log(doc[0]._id.toString())
             console.log(doc[0].email)
-            const token = jwt.sign({_id: doc[0]._id}, "secret", {expiresIn: '60s'})
+            const token = jwt.sign({_id: doc[0]._id}, "secret", {expiresIn: '1h'})
 
             console.log(token)
             res.header('auth-token', token).send(token)
